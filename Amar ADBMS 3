@@ -1,0 +1,380 @@
+mysql> select distinct designation from employee;
++-------------+
+| designation |
++-------------+
+| Typist      |
+| Analyst     |
+| Manager     |
+| Clerk       |
++-------------+
+4 rows in set (0.00 sec)
+
+mysql> select count(distinct designation) from employee;
++-----------------------------+
+| count(distinct designation) |
++-----------------------------+
+|                           4 |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select max(basic) from employee where gender='f';
++------------+
+| max(basic) |
++------------+
+|    6000.00 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select * from employee where gender='f' and designation='typist';
++------+--------+------+-------------+---------+--------+-----------+
+| ID   | DeptId | Name | Designation | Basic   | Gender | ManagerId |
++------+--------+------+-------------+---------+--------+-----------+
+| 121  |      1 | Ruby | Typist      | 2010.00 | F      |       101 |
++------+--------+------+-------------+---------+--------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where gender='m' and basic>3000;
++------+--------+-------+-------------+---------+--------+-----------+
+| ID   | DeptId | Name  | Designation | Basic   | Gender | ManagerId |
++------+--------+-------+-------------+---------+--------+-----------+
+| 102  |      2 | Arun  | Analyst     | 6000.00 | M      |       101 |
+| 127  |      2 | Kiran | Manager     | 4000.00 | M      |       121 |
++------+--------+-------+-------------+---------+--------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee where gender='m'and Designation='clerk' and basic>3000;
+Empty set (0.00 sec)
+
+
+mysql> select * from employee where Designation='manager' or Designation='analyst' and DeptId=2;
++------+--------+---------+-------------+---------+--------+-----------+
+| ID   | DeptId | Name    | Designation | Basic   | Gender | ManagerId |
++------+--------+---------+-------------+---------+--------+-----------+
+| 102  |      2 | Arun    | Analyst     | 6000.00 | M      |       101 |
+| 156  |      3 | Mary    | Manager     | 4500.00 | F      |       101 |
+| 123  |      2 | Mridula | Analyst     | 6000.00 | F      |       102 |
+| 127  |      2 | Kiran   | Manager     | 4000.00 | M      |       121 |
++------+--------+---------+-------------+---------+--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee where Designation='manager' or Designation='analyst' and DeptId='2';
++------+--------+---------+-------------+---------+--------+-----------+
+| ID   | DeptId | Name    | Designation | Basic   | Gender | ManagerId |
++------+--------+---------+-------------+---------+--------+-----------+
+| 102  |      2 | Arun    | Analyst     | 6000.00 | M      |       101 |
+| 156  |      3 | Mary    | Manager     | 4500.00 | F      |       101 |
+| 123  |      2 | Mridula | Analyst     | 6000.00 | F      |       102 |
+| 127  |      2 | Kiran   | Manager     | 4000.00 | M      |       121 |
++------+--------+---------+-------------+---------+--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee where Designation in  ('manager','analyst') and DeptId=2;
++------+--------+---------+-------------+---------+--------+-----------+
+| ID   | DeptId | Name    | Designation | Basic   | Gender | ManagerId |
++------+--------+---------+-------------+---------+--------+-----------+
+| 102  |      2 | Arun    | Analyst     | 6000.00 | M      |       101 |
+| 123  |      2 | Mridula | Analyst     | 6000.00 | F      |       102 |
+| 127  |      2 | Kiran   | Manager     | 4000.00 | M      |       121 |
++------+--------+---------+-------------+---------+--------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select Designation,Basic from employee where name='Ruby';
++-------------+---------+
+| Designation | Basic   |
++-------------+---------+
+| Typist      | 2010.00 |
++-------------+---------+
+1 row in set (0.00 sec)
+mysql> alter table employee add joining_date date;
+Query OK, 0 rows affected (0.22 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| ID           | varchar(5)    | YES  |     | NULL    |       |
+| DeptId       | int           | YES  |     | NULL    |       |
+| Name         | varchar(15)   | YES  |     | NULL    |       |
+| Designation  | varchar(15)   | YES  |     | NULL    |       |
+| Basic        | decimal(10,2) | YES  |     | NULL    |       |
+| Gender       | varchar(1)    | YES  |     | NULL    |       |
+| ManagerId    | int           | YES  |     | NULL    |       |
+| joining_date | date          | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> select * from employee;
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+| ID   | DeptId | Name    | Designation | Basic   | Gender | ManagerId | joining_date |
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+| 101  |      1 | Ram     | Typist      | 2000.00 | M      |      NULL | NULL         |
+| 102  |      2 | Arun    | Analyst     | 6000.00 | M      |       101 | NULL         |
+| 121  |      1 | Ruby    | Typist      | 2010.00 | F      |       101 | NULL         |
+| 156  |      3 | Mary    | Manager     | 4500.00 | F      |       101 | NULL         |
+| 123  |      2 | Mridula | Analyst     | 6000.00 | F      |       102 | NULL         |
+| 114  |      4 | Menon   | Clerk       | 1500.00 | M      |       102 | NULL         |
+| 115  |      4 | Tim     | Clerk       | 1500.00 | M      |       102 | NULL         |
+| 127  |      2 | Kiran   | Manager     | 4000.00 | M      |       121 | NULL         |
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+8 rows in set (0.00 sec)
+
+mysql> update employee set joining_date='2023-04-15' where id=101;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+| ID   | DeptId | Name    | Designation | Basic   | Gender | ManagerId | joining_date |
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+| 101  |      1 | Ram     | Typist      | 2000.00 | M      |      NULL | 2023-04-15   |
+| 102  |      2 | Arun    | Analyst     | 6000.00 | M      |       101 | NULL         |
+| 121  |      1 | Ruby    | Typist      | 2010.00 | F      |       101 | NULL         |
+| 156  |      3 | Mary    | Manager     | 4500.00 | F      |       101 | NULL         |
+| 123  |      2 | Mridula | Analyst     | 6000.00 | F      |       102 | NULL         |
+| 114  |      4 | Menon   | Clerk       | 1500.00 | M      |       102 | NULL         |
+| 115  |      4 | Tim     | Clerk       | 1500.00 | M      |       102 | NULL         |
+| 127  |      2 | Kiran   | Manager     | 4000.00 | M      |       121 | NULL         |
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+8 rows in set (0.00 sec)
+
+mysql> update employee set joining_date='2022-04-15' where id=102;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set joining_date='2022-05-15' where id=121;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+| ID   | DeptId | Name    | Designation | Basic   | Gender | ManagerId | joining_date |
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+| 101  |      1 | Ram     | Typist      | 2000.00 | M      |      NULL | 2023-04-15   |
+| 102  |      2 | Arun    | Analyst     | 6000.00 | M      |       101 | 2022-04-15   |
+| 121  |      1 | Ruby    | Typist      | 2010.00 | F      |       101 | 2022-05-15   |
+| 156  |      3 | Mary    | Manager     | 4500.00 | F      |       101 | NULL         |
+| 123  |      2 | Mridula | Analyst     | 6000.00 | F      |       102 | NULL         |
+| 114  |      4 | Menon   | Clerk       | 1500.00 | M      |       102 | NULL         |
+| 115  |      4 | Tim     | Clerk       | 1500.00 | M      |       102 | NULL         |
+| 127  |      2 | Kiran   | Manager     | 4000.00 | M      |       121 | NULL         |
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+8 rows in set (0.00 sec)
+
+mysql> update employee set joining_date='2022-01-15' where id=156;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set joining_date='2022-10-20' where id=123;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set joining_date='2022-11-20' where id=114;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set joining_date='2022-12-20' where id=115;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set joining_date='2020-05-26' where id=127;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+| ID   | DeptId | Name    | Designation | Basic   | Gender | ManagerId | joining_date |
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+| 101  |      1 | Ram     | Typist      | 2000.00 | M      |      NULL | 2023-04-15   |
+| 102  |      2 | Arun    | Analyst     | 6000.00 | M      |       101 | 2022-04-15   |
+| 121  |      1 | Ruby    | Typist      | 2010.00 | F      |       101 | 2022-05-15   |
+| 156  |      3 | Mary    | Manager     | 4500.00 | F      |       101 | 2022-01-15   |
+| 123  |      2 | Mridula | Analyst     | 6000.00 | F      |       102 | 2022-10-20   |
+| 114  |      4 | Menon   | Clerk       | 1500.00 | M      |       102 | 2022-11-20   |
+| 115  |      4 | Tim     | Clerk       | 1500.00 | M      |       102 | 2022-12-20   |
+| 127  |      2 | Kiran   | Manager     | 4000.00 | M      |       121 | 2020-05-26   |
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee order by joining_date;
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+| ID   | DeptId | Name    | Designation | Basic   | Gender | ManagerId | joining_date |
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+| 127  |      2 | Kiran   | Manager     | 4000.00 | M      |       121 | 2020-05-26   |
+| 156  |      3 | Mary    | Manager     | 4500.00 | F      |       101 | 2022-01-15   |
+| 102  |      2 | Arun    | Analyst     | 6000.00 | M      |       101 | 2022-04-15   |
+| 121  |      1 | Ruby    | Typist      | 2010.00 | F      |       101 | 2022-05-15   |
+| 123  |      2 | Mridula | Analyst     | 6000.00 | F      |       102 | 2022-10-20   |
+| 114  |      4 | Menon   | Clerk       | 1500.00 | M      |       102 | 2022-11-20   |
+| 115  |      4 | Tim     | Clerk       | 1500.00 | M      |       102 | 2022-12-20   |
+| 101  |      1 | Ram     | Typist      | 2000.00 | M      |      NULL | 2023-04-15   |
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+8 rows in set (0.00 sec)
+
+mysql> 
+mysql> select * from employee order by basic desc;
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+| ID   | DeptId | Name    | Designation | Basic   | Gender | ManagerId | joining_date |
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+| 102  |      2 | Arun    | Analyst     | 6000.00 | M      |       101 | 2022-04-15   |
+| 123  |      2 | Mridula | Analyst     | 6000.00 | F      |       102 | 2022-10-20   |
+| 156  |      3 | Mary    | Manager     | 4500.00 | F      |       101 | 2022-01-15   |
+| 127  |      2 | Kiran   | Manager     | 4000.00 | M      |       121 | 2020-05-26   |
+| 121  |      1 | Ruby    | Typist      | 2010.00 | F      |       101 | 2022-05-15   |
+| 101  |      1 | Ram     | Typist      | 2000.00 | M      |      NULL | 2023-04-15   |
+| 114  |      4 | Menon   | Clerk       | 1500.00 | M      |       102 | 2022-11-20   |
+| 115  |      4 | Tim     | Clerk       | 1500.00 | M      |       102 | 2022-12-20   |
++------+--------+---------+-------------+---------+--------+-----------+--------------+
+8 rows in set (0.00 sec)
+
+mysql> drop table department;
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_23mca15 |
++-------------------+
+| employee          |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> create table department(dept_id int PRIMARY KEY,dname char(15));
+Query OK, 0 rows affected (0.33 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_23mca15 |
++-------------------+
+| department        |
+| employee          |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> desc department
+    -> desc department
+    -> 
+    -> 
+    -> ^C
+mysql> desc department;
++---------+----------+------+-----+---------+-------+
+| Field   | Type     | Null | Key | Default | Extra |
++---------+----------+------+-----+---------+-------+
+| dept_id | int      | NO   | PRI | NULL    |       |
+| dname   | char(15) | YES  |     | NULL    |       |
++---------+----------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+
+mysql> Alter table employee add constraint fk_dept_id FOREIGN KEY(dept_id) references department(dept_id);
+ERROR 1072 (42000): Key column 'dept_id' doesn't exist in table
+
+mysql> Alter table employee add constraint fk_dept_id FOREIGN KEY(dept_id) references department(dept_id);
+Query OK, 8 rows affected (1.51 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| ID           | varchar(5)    | YES  |     | NULL    |       |
+| dept_id      | int           | YES  | MUL | NULL    |       |
+| Name         | varchar(15)   | YES  |     | NULL    |       |
+| Designation  | varchar(15)   | YES  |     | NULL    |       |
+| Basic        | decimal(10,2) | YES  |     | NULL    |       |
+| Gender       | varchar(1)    | YES  |     | NULL    |       |
+| ManagerId    | int           | YES  |     | NULL    |       |
+| joining_date | date          | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+
+mysql> insert into department values(1,'design'),(2,'coding'),(3,'testing'),(4,'research'),(5,'maintain');
+Query OK, 5 rows affected (0.07 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+
+mysql> select * from department;
++---------+----------+
+| dept_id | dname    |
++---------+----------+
+|       1 | design   |
+|       2 | coding   |
+|       3 | testing  |
+|       4 | research |
+|       5 | maintain |
++---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select Name as employee_name,dname as department_name from employee join department on employee.dept_id=department.dept_id;
++---------------+-----------------+
+| employee_name | department_name |
++---------------+-----------------+
+| Ram           | design          |
+| Ruby          | design          |
+| Arun          | coding          |
+| Mridula       | coding          |
+| Kiran         | coding          |
+| Mary          | testing         |
+| Menon         | research        |
+| Tim           | research        |
++---------------+-----------------+
+8 rows in set (0.01 sec)
+
+mysql> select dname as department_name from employee join department on employee.dept_id=department.dept_id where employee.Name='Arun';
++-----------------+
+| department_name |
++-----------------+
+| coding          |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select employee.basic as salary from employee join department on employee.dept_id=department.dept_id where department.dname='design';
++---------+
+| salary  |
++---------+
+| 2000.00 |
+| 2010.00 |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee join department on employee.dept_id=department.dept_id where department.dname='design' and employee.designation='typist';
++------+---------+------+-------------+---------+--------+-----------+--------------+---------+--------+
+| ID   | dept_id | Name | Designation | Basic   | Gender | ManagerId | joining_date | dept_id | dname  |
++------+---------+------+-------------+---------+--------+-----------+--------------+---------+--------+
+| 101  |       1 | Ram  | Typist      | 2000.00 | M      |      NULL | 2023-04-15   |       1 | design |
+| 121  |       1 | Ruby | Typist      | 2010.00 | F      |       101 | 2022-05-15   |       1 | design |
++------+---------+------+-------------+---------+--------+-----------+--------------+---------+--------+
+2 rows in set (0.01 sec)
+
+mysql> select employee.basic as salary from employee join department on employee.dept_id=department.dept_id where department.dname='research';
++---------+
+| salary  |
++---------+
+| 1500.00 |
+| 1500.00 |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> select employee.Name as Name from employee join department on employee.dept_id=department.dept_id where department.dname='testing';
++------+
+| Name |
++------+
+| Mary |
++------+
+1 row in set (0.01 sec)
+
+mysql> select * from employee join department on employee.dept_id=department.dept_id where department.dname not in('coding','testing');
++------+---------+-------+-------------+---------+--------+-----------+--------------+---------+----------+
+| ID   | dept_id | Name  | Designation | Basic   | Gender | ManagerId | joining_date | dept_id | dname    |
++------+---------+-------+-------------+---------+--------+-----------+--------------+---------+----------+
+| 101  |       1 | Ram   | Typist      | 2000.00 | M      |      NULL | 2023-04-15   |       1 | design   |
+| 121  |       1 | Ruby  | Typist      | 2010.00 | F      |       101 | 2022-05-15   |       1 | design   |
+| 114  |       4 | Menon | Clerk       | 1500.00 | M      |       102 | 2022-11-20   |       4 | research |
+| 115  |       4 | Tim   | Clerk       | 1500.00 | M      |       102 | 2022-12-20   |       4 | research |
++------+---------+-------+-------------+---------+--------+-----------+--------------+---------+----------+
+4 rows in set (0.00 sec)
+
+
+
+
+

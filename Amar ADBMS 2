@@ -1,0 +1,386 @@
+4.mysql> show tables;
++-------------------+
+| Tables_in_23mca15 |
++-------------------+
+| course            |
+| student           |
+| tbl_staff         |
++-------------------+
+5.mysql> DESC student;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| roll_no     | int         | YES  |     | NULL    |       |
+| name        | varchar(20) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | text        | YES  |     | NULL    |       |
+| phone_no    | varchar(50) | YES  |     | NULL    |       |
+| blood_group | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+6.mysql> ALTER TABLE student drop column blood_group;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| roll_no  | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| address  | text        | YES  |     | NULL    |       |
+| phone_no | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+7.mysql> ALTER TABLE student add Adhar_no int;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| roll_no  | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| address  | text        | YES  |     | NULL    |       |
+| phone_no | varchar(50) | YES  |     | NULL    |       |
+| Adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+8.mysql> ALTER TABLE student MODIFY phone_no int;
+Query OK, 0 rows affected (0.29 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| roll_no  | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| address  | text        | YES  |     | NULL    |       |
+| phone_no | int         | YES  |     | NULL    |       |
+| Adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+b.
+mysql> show tables;
++-------------------+ysql> ALTER TABLE department add PRIMARY KEY(dept_id);
+ERROR 1072 (42000): Key column 'dept_id' doesn't exist in table
+mysql> ALTER TABLE department add PRIMARY KEY(dept_no);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | NO   | PRI | NULL    |       |
+| dept_name | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE employee ADD constraint department FOREIGN KEY(dept_no) REFERENCES department(dept_no) on delete cascade;
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee
+    -> ^C      
+
+^C
+mysql> DESC employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | NO   | PRI | NULL    |       |
+| emp_name    | varchar(50) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | tinytext    | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(10) | YES  | MUL | NULL    |       |
+| sallary     | int         | YES  |     | NULL    |       |
+| Designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> ALTER TABLE orders DROP PRIMARY KEY;
+Query OK, 0 rows affected (0.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC orders;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| order_id     | int         | NO   |     | NULL    |       |
+| order_number | varchar(20) | NO   |     | NULL    |       |
+| person_id    | int         | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+| Tables_in_23mca15 |
++-------------------+
+| department        |
+| employee          |
+| tbl_staff         |
++-------------------+
+3 rows in set (0.00 sec)
+mysql> CREATE  database organisation;
+ERROR 1044 (42000): Access denied for user '23mca15'@'%' to database 'organisation'
+mysql> CREATE TABLE employee(emp_no varchar(10),emp_name varchar(50),dob date,address text(50),mobile_no int,dept_no varchar(10),sallary int);
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> CREATE TABLE department(dept_no varchar(10),dept_name varchar(50),location varchar(50));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> DESC employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| emp_no    | varchar(10) | YES  |     | NULL    |       |
+| emp_name  | varchar(50) | YES  |     | NULL    |       |
+| dob       | date        | YES  |     | NULL    |       |
+| address   | tinytext    | YES  |     | NULL    |       |
+| mobile_no | int         | YES  |     | NULL    |       |
+| dept_no   | varchar(10) | YES  |     | NULL    |       |
+| sallary   | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+mysql> ALTER TABLE employee add Designation varchar(20);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | YES  |     | NULL    |       |
+| emp_name    | varchar(50) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | tinytext    | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(10) | YES  |     | NULL    |       |
+| sallary     | int         | YES  |     | NULL    |       |
+| Designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+mysql> ALTER TABLE department drop column location;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | YES  |     | NULL    |       |
+| dept_name | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+
+mysql> 
+mysql> DESC department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | YES  |     | NULL    |       |
+| dept_name | varchar(50) | YES  |     | NULL    |       |
+| location  | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+^C
+mysql> show tables;
++-------------------+
+| Tables_in_23mca15 |
++-------------------+
+| department        |
+| employee          |
+| tbl_staff         |
++-------------------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE employee add Designation varchar(20);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | YES  |     | NULL    |       |
+| emp_name    | varchar(50) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | tinytext    | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(10) | YES  |     | NULL    |       |
+| sallary     | int         | YES  |     | NULL    |       |
+| Designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> ALTER TABLE department drop column location;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | YES  |     | NULL    |       |
+| dept_name | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+c.
+mysql> CREATE TABLE Person(person_id int PRIMARY KEY,name varchar(20) NOT NULL,Adhar int NOT NULL unique,age int check(age>18));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> insert into person values(1,'Appu',380150,15);
+ERROR 1146 (42S02): Table '23mca15.person' doesn't exist
+mysql> insert into person values(1,'Appu',380150,21);
+ERROR 1146 (42S02): Table '23mca15.person' doesn't exist
+mysql> show tables
+    -> 
+
+^C
+mysql> show tables;
++-------------------+
+| Tables_in_23mca15 |
++-------------------+
+| Person            |
+| department        |
+| employee          |
+| tbl_staff         |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into Person values(1,'Appu',380150,21);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Person values(2,'Appuu',280150,11);
+ERROR 3819 (HY000): Check constraint 'Person_chk_1' is violated.
+mysql> CREATE TABLE orders(order_id int PRIMARY KEY,order_number varchar(20) NOT NULL,person_id int FOREIGN KEY references Person(person_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOREIGN KEY references Person(person_id))' at line 1
+mysql> CREATE TABLE orders(order_id int PRIMARY KEY,order_number varchar(20) NOT NULL,person_id int FOREIGN KEY references Person (person_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOREIGN KEY references Person (person_id))' at line 1
+mysql> CREATE TABLE orders(order_id int PRIMARY KEY,order_number varchar(20) NOT NULL,person_id int ,FOREIGN KEY(person_id) references Person (person_id));
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> DESC person;
+ERROR 1146 (42S02): Table '23mca15.person' doesn't exist
+mysql> DESC Person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| person_id | int         | NO   | PRI | NULL    |       |
+| name      | varchar(20) | NO   |     | NULL    |       |
+| Adhar     | int         | NO   | UNI | NULL    |       |
+| age       | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> DESC orders;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| order_id     | int         | NO   | PRI | NULL    |       |
+| order_number | varchar(20) | NO   |     | NULL    |       |
+| person_id    | int         | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE employee add PRIMARY KEY(emp_no);
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | NO   | PRI | NULL    |       |
+| emp_name    | varchar(50) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | tinytext    | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(10) | YES  |     | NULL    |       |
+| sallary     | int         | YES  |     | NULL    |       |
+| Designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+ysql> ALTER TABLE department add PRIMARY KEY(dept_id);
+ERROR 1072 (42000): Key column 'dept_id' doesn't exist in table
+mysql> ALTER TABLE department add PRIMARY KEY(dept_no);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | NO   | PRI | NULL    |       |
+| dept_name | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE employee ADD constraint department FOREIGN KEY(dept_no) REFERENCES department(dept_no) on delete cascade;
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee
+    -> ^C      
+
+^C
+mysql> DESC employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | NO   | PRI | NULL    |       |
+| emp_name    | varchar(50) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | tinytext    | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(10) | YES  | MUL | NULL    |       |
+| sallary     | int         | YES  |     | NULL    |       |
+| Designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> ALTER TABLE orders DROP PRIMARY KEY;
+Query OK, 0 rows affected (0.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC orders;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| order_id     | int         | NO   |     | NULL    |       |
+| order_number | varchar(20) | NO   |     | NULL    |       |
+| person_id    | int         | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+
