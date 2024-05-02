@@ -1,0 +1,61 @@
+mysql> show tables;
++-------------------+
+| Tables_in_23mca10 |
++-------------------+
+| Department        |
+| Employee          |
+| department        |
+| employee          |
+| orders            |
+| person            |
+| staff             |
++-------------------+
+7 rows in set (0.00 sec)
+
+mysql> select * FROM department;
++---------+----------+
+| dept_id | dname    |
++---------+----------+
+|       1 | design   |
+|       2 | coding   |
+|       3 | Testing  |
+|       4 | Research |
+|       5 | Maintain |
++---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * FROM staff
+    -> ^C
+mysql> select * FROM staff;
++------+--------+---------+---------+---------+--------+--------------+--------------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | Manager_Name | joining_date |
++------+--------+---------+---------+---------+--------+--------------+--------------+
+| 102  |      2 | Arun    | Analyst | 6000.00 | M      | NULL         | 2024-03-10   |
+| 121  |      1 | Ruby    | Typist  | 2010.00 | F      | NULL         | 2023-01-22   |
+| 156  |      3 | Mary    | Manager | 4500.00 | F      | NULL         | 2023-01-13   |
+| 123  |      2 | Mridula | Analyst | 6000.00 | F      | NULL         | 2024-01-13   |
+| 114  |      4 | Menon   | Clerk   | 1500.00 | M      | NULL         | 2024-02-13   |
+| 115  |      4 | Tim     | Clerk   | 1500.00 | M      | NULL         | 2024-03-13   |
+| 127  |      2 | Kiran   | Manager | 4000.00 | M      | NULL         | 2024-03-23   |
++------+--------+---------+---------+---------+--------+--------------+--------------+
+7 rows in set (0.00 sec)
+
+mysql> select Name as Employee Name,dname s department Name FROM staff Join department on staff.DeptId=department.dept_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Name,dname s department Name FROM staff Join department on staff.DeptId=departme' at line 1
+mysql> select Name as Employee Name,dname as department Name FROM staff Join department on staff.DeptId=department.dept_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Name,dname as department Name FROM staff Join department on staff.DeptId=departm' at line 1
+mysql> select Name as Employee_Name,dname as department_Name FROM staff Join department on staff.DeptId=department.dept_id;
++---------------+-----------------+
+| Employee_Name | department_Name |
++---------------+-----------------+
+| Arun          | coding          |
+| Ruby          | design          |
+| Mary          | Testing         |
+| Mridula       | coding          |
+| Menon         | Research        |
+| Tim           | Research        |
+| Kiran         | coding          |
++---------------+-----------------+
+7 rows in set (0.00 sec)
+
+
